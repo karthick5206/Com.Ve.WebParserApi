@@ -23,60 +23,60 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpGet("ChatResponse")]
-        public string ChatResponse(String IMEI, String Reply)
+        public string ChatResponse(string Imei, string Reply)
         {
             try
             {
                 Log("Chat Response", LogType.Info);
-                Log("Received Message IMEI : " + IMEI, LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
                 Log("Received Message Reply : " + Reply, LogType.Info);
             }
             catch (Exception ex)
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
+            string XML = "\"SUCCESS0\"";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpGet("GetCommands")]
 
-        public string GetCommands(string IMEI)
+        public string GetCommands(string Imei)
         {
             try
             {
                 Log("GetCommands", LogType.Info);
-                Log("Received Message IMEI : " + IMEI, LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
             }
             catch (Exception ex)
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = " ";
+            string XML = "\"\"";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
         [HttpGet("FirmwareUpdated")]
-        private string FirmwareUpdated(String IMEI, String FirmwareId)
+        private string FirmwareUpdated(string Imei, string FirmwareId)
         {
             try
             {
                 Log("FirmwareUpdated", LogType.Info);
-                Log("Received Message IMEI : " + IMEI, LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
                 Log("Received Message FirmwareId : " + FirmwareId, LogType.Info);
             }
             catch (Exception ex)
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
+            string XML = "\"SUCCESS0\"";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpGet("DeviceStatus")]
-        public string DeviceStatus(String IMEI, String GpsStatus)
+        public string DeviceStatus(string IMEI, string GpsStatus)
         {
             try
             {
@@ -88,21 +88,21 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
+            string XML = "\"SUCCESS0\"";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpGet("RawTripLog")]
-        public string RawTripLog(String IMEI, String TripLogData)
+        public string RawTripLog(string Imei, string TripLogData)
         {
             try
             {
                 Log("RawTripLog", LogType.Info);
-                Log("Received Message IMEI : " + IMEI,
+                Log("Received Message IMEI : " + Imei,
                     LogType.Info);
                 Log("Received Message TripLogData : " + TripLogData, LogType.Info);
-                var receivedMessage = IMEI + "/" + TripLogData;
+                var receivedMessage = Imei + "/" + TripLogData;
                 if (!string.IsNullOrEmpty(receivedMessage) && receivedMessage.Length > 1)
                 {
                     Log("Received Message : " + receivedMessage, LogType.Info);
@@ -126,9 +126,15 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS";
+            string XML = "\"SUCCESS\"";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
+    }
+
+    public class XmlOutput
+    {
+        [XmlElement(ElementName = "string", Namespace = "http://tempuri.org/")]
+        public string Output { get; set; }
     }
 }
