@@ -14,6 +14,15 @@
     <None Update="RavenDB\Pfix\free.vibhav.client.certificate.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="RavenDB\Pfix\free.vibhav.client.certificate.with.password.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RavenDB\Pfix\PEM\free.vibhav.client.certificate.crt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RavenDB\Pfix\PEM\free.vibhav.client.certificate.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
