@@ -94,7 +94,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog([FromBody] TripLogData tripLogData)
+        public string RawTripLog([FromBody] TripLog tripLogData)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
     }   
 
-    public class TripLogData
+    public class TripLog
     {
         public string Imei { get; set; }
         public string TripLogData { get; set; }
