@@ -8,10 +8,12 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Com.Ve.WebParserApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/WebService.asmx")]
     [ApiController]
     public class WebServiceController : ControllerBase
     {
@@ -33,7 +35,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<http://tempuri.org/>SUCCESS0</http://tempuri.org/>";
+            string XML = "SUCCESS0";
+            HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
@@ -50,9 +53,9 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<http://tempuri.org/></http://tempuri.org/>";
+            string XML = " ";
+            HttpContext.Response.ContentType = "application/xml";
             return XML;
-            //return new JavaScriptSerializer().Serialize("");
         }
         [HttpGet("FirmwareUpdated")]
         private string FirmwareUpdated(String IMEI, String FirmwareId)
@@ -67,9 +70,9 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<http://tempuri.org/>SUCCESS0</http://tempuri.org/>";
+            string XML = "SUCCESS0";
+            HttpContext.Response.ContentType = "application/xml";
             return XML;
-            //return new JavaScriptSerializer().Serialize("SUCCESS0");
         }
 
         [HttpGet("DeviceStatus")]
@@ -85,9 +88,9 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<http://tempuri.org/>SUCCESS0</http://tempuri.org/>";
+            string XML = "SUCCESS0";
+            HttpContext.Response.ContentType = "application/xml";
             return XML;
-            // return new JavaScriptSerializer().Serialize("SUCCESS0");
         }
 
         [HttpGet("RawTripLog")]
@@ -123,9 +126,9 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<http://tempuri.org/>SUCCESS</http://tempuri.org/>";
+            string XML = "SUCCESS";
+            HttpContext.Response.ContentType = "application/xml";
             return XML;
-            //return new JavaScriptSerializer().Serialize("SUCCESS");
         }
     }
 }
