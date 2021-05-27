@@ -22,7 +22,7 @@ namespace Com.Ve.WebParserApi.Controllers
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
         }
 
-        [HttpGet("ChatResponse")]
+        [HttpPost("ChatResponse")]
         public string ChatResponse(string Imei, string Reply)
         {
             try
@@ -40,7 +40,7 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
 
-        [HttpGet("GetCommands")]
+        [HttpPost("GetCommands")]
 
         public string GetCommands(string Imei)
         {
@@ -57,7 +57,7 @@ namespace Com.Ve.WebParserApi.Controllers
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
-        [HttpGet("FirmwareUpdated")]
+        [HttpPost("FirmwareUpdated")]
         private string FirmwareUpdated(string Imei, string FirmwareId)
         {
             try
@@ -75,7 +75,7 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
 
-        [HttpGet("DeviceStatus")]
+        [HttpPost("DeviceStatus")]
         public string DeviceStatus(string IMEI, string GpsStatus)
         {
             try
@@ -93,7 +93,7 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
 
-        [HttpGet("RawTripLog")]
+        [HttpPost("RawTripLog")]
         public string RawTripLog(string Imei, string TripLogData)
         {
             try
@@ -130,11 +130,5 @@ namespace Com.Ve.WebParserApi.Controllers
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
-    }
-
-    public class XmlOutput
-    {
-        [XmlElement(ElementName = "string", Namespace = "http://tempuri.org/")]
-        public string Output { get; set; }
-    }
+    }   
 }
