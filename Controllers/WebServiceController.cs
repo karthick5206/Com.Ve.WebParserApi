@@ -94,15 +94,15 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog(string Imei, string TripLogData)
+        public string RawTripLog([FromBody] TripLogData tripLogData)
         {
             try
             {
                 Log("RawTripLog", LogType.Info);
-                Log("Received Message IMEI : " + Imei,
+                Log("Received Message IMEI : " + tripLogData.Imei,
                     LogType.Info);
-                Log("Received Message TripLogData : " + TripLogData, LogType.Info);
-                var receivedMessage = Imei + "/" + TripLogData;
+                Log("Received Message TripLogData : " + tripLogData.TripLogData, LogType.Info);
+                var receivedMessage = tripLogData.Imei + "/" + tripLogData.TripLogData;
                 if (!string.IsNullOrEmpty(receivedMessage) && receivedMessage.Length > 1)
                 {
                     Log("Received Message : " + receivedMessage, LogType.Info);
@@ -131,4 +131,10 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
     }   
+
+    public class TripLogData
+    {
+        public string Imei { get; set; }
+        public string TripLogData { get; set; }
+    }
 }
