@@ -22,6 +22,7 @@ namespace Com.Ve.WebParserApi
                 {
                     webBuilder.UseIISIntegration();
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseUrls("http://0.0.0.0:5000");
                 });
     }
 }
