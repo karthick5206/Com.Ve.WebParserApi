@@ -1,6 +1,7 @@
 ﻿using Com.Ve.ServerDataReceiver.RavenDB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,14 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public string ChatResponse([FromBody] TripLog tripLogData)
+        public string ChatResponse(string Imei, string Reply)
         {
             try
             {
+                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
                 Log("Chat Response", LogType.Info);
-                Log("Received Message IMEI : " + tripLogData. Imei, LogType.Info);
-                Log("Received Message Reply : " + tripLogData.Reply, LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
+                Log("Received Message Reply : " + Reply, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -46,6 +48,7 @@ namespace Com.Ve.WebParserApi.Controllers
         {
             try
             {
+                Log($"Request:{JsonConvert.SerializeObject(Request)}",LogType.Info);
                 Log("GetCommands", LogType.Info);
                 Log("Received Message IMEI : " + Imei, LogType.Info);
             }
@@ -58,13 +61,14 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
         [HttpPost("FirmwareUpdated")]
-        private string FirmwareUpdated([FromBody] TripLog tripLogData)
+        private string FirmwareUpdated(string Imei, string FirmwareId)
         {
             try
             {
+                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
                 Log("FirmwareUpdated", LogType.Info);
-                Log("Received Message IMEI : " + tripLogData.Imei, LogType.Info);
-                Log("Received Message FirmwareId : " + tripLogData.FirmwareId, LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
+                Log("Received Message FirmwareId : " + FirmwareId, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -76,13 +80,14 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("DeviceStatus")]
-        public string DeviceStatus([FromBody] TripLog tripLogData)
+        public string DeviceStatus(string IMEI, string GpsStatus)
         {
             try
             {
+                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
                 Log("DeviceStatus", LogType.Info);
-                Log("Received Message IMEI : " + tripLogData.Imei, LogType.Info);
-                Log("Received Message GpsStatus : " + tripLogData.GpsStatus, LogType.Info);
+                Log("Received Message IMEI : " + IMEI, LogType.Info);
+                Log("Received Message GpsStatus : " + GpsStatus, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -94,15 +99,16 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog([FromBody] TripLog tripLogData)
+        public string RawTripLog(string Imei, string TripLogData)
         {
             try
             {
+                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
                 Log("RawTripLog", LogType.Info);
-                Log("Received Message IMEI : " + tripLogData.Imei,
+                Log("Received Message IMEI : " + Imei,
                     LogType.Info);
-                Log("Received Message TripLogData : " + tripLogData.TripLogData, LogType.Info);
-                var receivedMessage = tripLogData.Imei + "/" + tripLogData.TripLogData;
+                Log("Received Message TripLogData : " + TripLogData, LogType.Info);
+                var receivedMessage = Imei + "/" + TripLogData;
                 if (!string.IsNullOrEmpty(receivedMessage) && receivedMessage.Length > 1)
                 {
                     Log("Received Message : " + receivedMessage, LogType.Info);
@@ -131,13 +137,4 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
     }   
-
-    public class TripLog
-    {
-        public string Imei { get; set; }
-        public string Reply { get; set; }
-        public string GpsStatus { get; set; }
-        public string FirmwareId { get; set; }
-        public string TripLogData { get; set; }
-    }
 }
