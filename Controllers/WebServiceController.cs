@@ -23,13 +23,13 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public string ChatResponse(string Imei, string Reply)
+        public string ChatResponse([FromBody] TripLog tripLogData)
         {
             try
             {
                 Log("Chat Response", LogType.Info);
-                Log("Received Message IMEI : " + Imei, LogType.Info);
-                Log("Received Message Reply : " + Reply, LogType.Info);
+                Log("Received Message IMEI : " + tripLogData. Imei, LogType.Info);
+                Log("Received Message Reply : " + tripLogData.Reply, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -58,13 +58,13 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
         [HttpPost("FirmwareUpdated")]
-        private string FirmwareUpdated(string Imei, string FirmwareId)
+        private string FirmwareUpdated([FromBody] TripLog tripLogData)
         {
             try
             {
                 Log("FirmwareUpdated", LogType.Info);
-                Log("Received Message IMEI : " + Imei, LogType.Info);
-                Log("Received Message FirmwareId : " + FirmwareId, LogType.Info);
+                Log("Received Message IMEI : " + tripLogData.Imei, LogType.Info);
+                Log("Received Message FirmwareId : " + tripLogData.FirmwareId, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -76,13 +76,13 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("DeviceStatus")]
-        public string DeviceStatus(string IMEI, string GpsStatus)
+        public string DeviceStatus([FromBody] TripLog tripLogData)
         {
             try
             {
                 Log("DeviceStatus", LogType.Info);
-                Log("Received Message IMEI : " + IMEI, LogType.Info);
-                Log("Received Message GpsStatus : " + GpsStatus, LogType.Info);
+                Log("Received Message IMEI : " + tripLogData.Imei, LogType.Info);
+                Log("Received Message GpsStatus : " + tripLogData.GpsStatus, LogType.Info);
             }
             catch (Exception ex)
             {
@@ -135,6 +135,9 @@ namespace Com.Ve.WebParserApi.Controllers
     public class TripLog
     {
         public string Imei { get; set; }
+        public string Reply { get; set; }
+        public string GpsStatus { get; set; }
+        public string FirmwareId { get; set; }
         public string TripLogData { get; set; }
     }
 }
