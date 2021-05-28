@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,12 +24,19 @@ namespace Com.Ve.WebParserApi.Controllers
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
         }
 
+        private void WriteRequest( )
+        {
+            Log($"Method:{Request.Method} Path:{Request.Path}" +
+                $" QueryString:{Request.QueryString} Method:{Request.Method}" +
+                $" ContentType:{Request.ContentType} {Request.ContentLength}", LogType.Info);
+        }
+
         [HttpPost("ChatResponse")]
         public string ChatResponse(string Imei, string Reply)
         {
             try
             {
-                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
+                WriteRequest();
                 Log("Chat Response", LogType.Info);
                 Log("Received Message IMEI : " + Imei, LogType.Info);
                 Log("Received Message Reply : " + Reply, LogType.Info);
@@ -48,7 +56,7 @@ namespace Com.Ve.WebParserApi.Controllers
         {
             try
             {
-                Log($"Request:{JsonConvert.SerializeObject(Request)}",LogType.Info);
+                WriteRequest();
                 Log("GetCommands", LogType.Info);
                 Log("Received Message IMEI : " + Imei, LogType.Info);
             }
@@ -65,7 +73,7 @@ namespace Com.Ve.WebParserApi.Controllers
         {
             try
             {
-                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
+                WriteRequest();
                 Log("FirmwareUpdated", LogType.Info);
                 Log("Received Message IMEI : " + Imei, LogType.Info);
                 Log("Received Message FirmwareId : " + FirmwareId, LogType.Info);
@@ -84,7 +92,7 @@ namespace Com.Ve.WebParserApi.Controllers
         {
             try
             {
-                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
+                WriteRequest();
                 Log("DeviceStatus", LogType.Info);
                 Log("Received Message IMEI : " + IMEI, LogType.Info);
                 Log("Received Message GpsStatus : " + GpsStatus, LogType.Info);
@@ -103,7 +111,7 @@ namespace Com.Ve.WebParserApi.Controllers
         {
             try
             {
-                Log($"Request:{JsonConvert.SerializeObject(Request)}", LogType.Info);
+                WriteRequest();
                 Log("RawTripLog", LogType.Info);
                 Log("Received Message IMEI : " + Imei,
                     LogType.Info);
