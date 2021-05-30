@@ -20,7 +20,7 @@ namespace Com.Ve.WebParserApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseIISIntegration();
+                    //webBuilder.UseIISIntegration();
                     webBuilder.UseStartup<Startup>();
                     //webBuilder.UseUrls("http://0.0.0.0:5000");
                 });
