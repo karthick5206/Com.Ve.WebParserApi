@@ -45,8 +45,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
-            HttpContext.Response.ContentType = "application/xml";
+            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
+            //HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
@@ -64,8 +64,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "";
-            HttpContext.Response.ContentType = "application/xml";
+            string XML = "<string xmlns=\"http://tempuri.org/\"></string>";
+            //HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
         [HttpPost("FirmwareUpdated")]
@@ -82,8 +82,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
-            HttpContext.Response.ContentType = "application/xml";
+            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
+            //HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
@@ -101,8 +101,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS0";
-            HttpContext.Response.ContentType = "application/xml";
+            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
+            // HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
@@ -140,8 +140,8 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "SUCCESS";
-            HttpContext.Response.ContentType = "application/xml";
+            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
+            //HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
     }   
