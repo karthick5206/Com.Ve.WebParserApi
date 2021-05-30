@@ -32,7 +32,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public string ChatResponse([FromBody]string Imei, [FromBody] string Reply)
+        public string ChatResponse([FromForm] string Imei,[FromForm] string Reply)
         {
             try
             {
@@ -45,14 +45,14 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "\"SUCCESS0\"";
+            string XML = "SUCCESS0";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpPost("GetCommands")]
 
-        public string GetCommands([FromBody] string Imei)
+        public string GetCommands([FromForm] string Imei)
         {
             try
             {
@@ -64,12 +64,12 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "\"\"";
+            string XML = "";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
         [HttpPost("FirmwareUpdated")]
-        private string FirmwareUpdated([FromBody] string Imei, [FromBody] string FirmwareId)
+        private string FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
         {
             try
             {
@@ -82,13 +82,13 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "\"SUCCESS0\"";
+            string XML = "SUCCESS0";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpPost("DeviceStatus")]
-        public string DeviceStatus([FromBody] string IMEI, [FromBody] string GpsStatus)
+        public string DeviceStatus([FromForm] string IMEI, [FromForm] string GpsStatus)
         {
             try
             {
@@ -101,13 +101,13 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "\"SUCCESS0\"";
+            string XML = "SUCCESS0";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog([FromBody] string Imei, [FromBody] string TripLogData)
+        public string RawTripLog([FromForm] string Imei, [FromForm] string TripLogData)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "\"SUCCESS\"";
+            string XML = "SUCCESS";
             HttpContext.Response.ContentType = "application/xml";
             return XML;
         }
