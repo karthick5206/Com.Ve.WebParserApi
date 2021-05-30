@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Com.Ve.WebParserApi.Controllers
@@ -24,7 +25,7 @@ namespace Com.Ve.WebParserApi.Controllers
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
         }
 
-        private void WriteRequest( )
+        private void WriteRequest()
         {
             Log($"Method:{Request.Method} Path:{Request.Path}" +
                 $" QueryString:{Request.QueryString} Method:{Request.Method}" +
@@ -32,7 +33,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public string ChatResponse([FromForm] string Imei,[FromForm] string Reply)
+        public XElement ChatResponse([FromForm] string Imei, [FromForm] string Reply)
         {
             try
             {
@@ -46,13 +47,13 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            //HttpContext.Response.ContentType = "application/xml";
-            return XML;
+            HttpContext.Response.ContentType = "application/xml";
+            return XDocument.Parse(XML).Root;
         }
 
         [HttpPost("GetCommands")]
 
-        public string GetCommands([FromForm] string Imei)
+        public XElement GetCommands([FromForm] string Imei)
         {
             try
             {
@@ -65,11 +66,11 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\"></string>";
-            //HttpContext.Response.ContentType = "application/xml";
-            return XML;
+            HttpContext.Response.ContentType = "application/xml";
+            return XDocument.Parse(XML).Root;
         }
         [HttpPost("FirmwareUpdated")]
-        private string FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
+        private XElement FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
         {
             try
             {
@@ -83,12 +84,12 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            //HttpContext.Response.ContentType = "application/xml";
-            return XML;
+            HttpContext.Response.ContentType = "application/xml";
+            return XDocument.Parse(XML).Root;
         }
 
         [HttpPost("DeviceStatus")]
-        public string DeviceStatus([FromForm] string IMEI, [FromForm] string GpsStatus)
+        public XElement DeviceStatus([FromForm] string IMEI, [FromForm] string GpsStatus)
         {
             try
             {
@@ -102,12 +103,12 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            // HttpContext.Response.ContentType = "application/xml";
-            return XML;
+            HttpContext.Response.ContentType = "application/xml";
+            return XDocument.Parse(XML).Root;
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog([FromForm] string Imei, [FromForm] string TripLogData)
+        public XElement RawTripLog([FromForm] string Imei, [FromForm] string TripLogData)
         {
             try
             {
@@ -141,8 +142,29 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
-            //HttpContext.Response.ContentType = "application/xml";
-            return XML;
+            HttpContext.Response.ContentType = "application/xml";
+            return XDocument.Parse(XML).Root;
         }
-    }   
+    }
+
+    [XmlRoot(ElementName = "string", Namespace = "http://tempuri.org/")]
+    public class XmlOutput
+    {
+        private XmlSerializerNamespaces _namespaces;
+
+        public XmlOutput()
+        {
+            this._namespaces = new XmlSerializerNamespaces(new XmlQualifiedName[] {
+            // Don't do this!! Microsoft's documentation explicitly says it's not supported.
+            // It doesn't throw any exceptions, but in my testing, it didn't always work.
+
+            // new XmlQualifiedName(string.Empty, string.Empty),  // And don't do this:
+            // new XmlQualifiedName("", "")
+
+            // DO THIS:
+            new XmlQualifiedName(string.Empty, "urn:Abracadabra") // Default Namespace
+            // Add any other namespaces, with prefixes, here.
+        });
+        }
+    }
 }
