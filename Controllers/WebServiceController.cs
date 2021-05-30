@@ -20,6 +20,8 @@ namespace Com.Ve.WebParserApi.Controllers
     [ApiController]
     public class WebServiceController : ControllerBase
     {
+        private const string ReplySuccess= "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
@@ -33,6 +35,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
+        [HttpGet("Chat")]
         public XElement ChatResponse([FromForm] string Imei, [FromForm] string Reply)
         {
             try
@@ -46,14 +49,35 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            HttpContext.Response.ContentType = "application/xml";
-            return XDocument.Parse(XML).Root;
+            //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+            HttpContext.Response.ContentType = "text/xml";
+            //return ReplySuccess0;
+            return XDocument.Parse(ReplySuccess0).Root;
+        }
+
+        [HttpGet("GetChatResponse")]
+        public XElement GetChatResponse(string Imei, string Reply)
+        {
+            try
+            {
+                WriteRequest();
+                Log("Chat Response", LogType.Info);
+                Log("Received Message IMEI : " + Imei, LogType.Info);
+                Log("Received Message Reply : " + Reply, LogType.Info);
+            }
+            catch (Exception ex)
+            {
+                Log(ex.StackTrace, LogType.Error);
+            }
+            //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+            HttpContext.Response.ContentType = "text/xml";
+            //return ReplySuccess0;
+            return XDocument.Parse(ReplySuccess0).Root;
         }
 
         [HttpPost("GetCommands")]
 
-        public XElement GetCommands([FromForm] string Imei)
+        public string GetCommands([FromForm] string Imei)
         {
             try
             {
@@ -66,8 +90,9 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\"></string>";
-            HttpContext.Response.ContentType = "application/xml";
-            return XDocument.Parse(XML).Root;
+            HttpContext.Response.ContentType = "text/xml";
+            //return XDocument.Parse(XML).Root;
+            return ReplySuccess;
         }
         [HttpPost("FirmwareUpdated")]
         private XElement FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
@@ -84,7 +109,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            HttpContext.Response.ContentType = "application/xml";
+            HttpContext.Response.ContentType = "text/xml";
             return XDocument.Parse(XML).Root;
         }
 
@@ -103,7 +128,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            HttpContext.Response.ContentType = "application/xml";
+            HttpContext.Response.ContentType = "text/xml";
             return XDocument.Parse(XML).Root;
         }
 
@@ -142,7 +167,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
-            HttpContext.Response.ContentType = "application/xml";
+            HttpContext.Response.ContentType = "text/xml";
             return XDocument.Parse(XML).Root;
         }
     }
