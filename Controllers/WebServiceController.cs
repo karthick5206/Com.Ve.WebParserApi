@@ -32,7 +32,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public string ChatResponse(string Imei, string Reply)
+        public string ChatResponse([FromBody]string Imei, [FromBody] string Reply)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Com.Ve.WebParserApi.Controllers
 
         [HttpPost("GetCommands")]
 
-        public string GetCommands(string Imei)
+        public string GetCommands([FromBody] string Imei)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Com.Ve.WebParserApi.Controllers
             return XML;
         }
         [HttpPost("FirmwareUpdated")]
-        private string FirmwareUpdated(string Imei, string FirmwareId)
+        private string FirmwareUpdated([FromBody] string Imei, [FromBody] string FirmwareId)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("DeviceStatus")]
-        public string DeviceStatus(string IMEI, string GpsStatus)
+        public string DeviceStatus([FromBody] string IMEI, [FromBody] string GpsStatus)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("RawTripLog")]
-        public string RawTripLog(string Imei, string TripLogData)
+        public string RawTripLog([FromBody] string Imei, [FromBody] string TripLogData)
         {
             try
             {

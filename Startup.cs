@@ -41,7 +41,7 @@ namespace Com.Ve.WebParserApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Com.Ve.WebParserApi", Version = "v1" });
+               c.SwaggerDoc("v1", new OpenApiInfo { Title = "Com.Ve.WebParserApi", Version = "v1" });
             });
         }
 
