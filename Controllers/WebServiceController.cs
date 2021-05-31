@@ -169,7 +169,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 if (!string.IsNullOrEmpty(receivedMessage) && receivedMessage.Length > 1)
                 {
                     Log("Received Message : " + receivedMessage, LogType.Info);
-                    var request = (HttpWebRequest)WebRequest.Create("http://localhost:4580/Service.ashx/RawTripLog");
+                    var request = (HttpWebRequest)WebRequest.Create("http://app.vibhaventerprise.com/fms/WebService.asmx/RawTripLog");
 
                     //LogFile.Info("Address : " + request.Address);
 
