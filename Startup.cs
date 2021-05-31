@@ -51,14 +51,14 @@ namespace Com.Ve.WebParserApi
         {
             if (env.IsDevelopment())
             {
-                app.UseMvc();
-                app.UseMiddleware<DeChunkerMiddleware>();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Com.Ve.WebParserApi v1"));
             }
 
             app.UseRouting();
+
+            app.UseMvc();
 
             app.UseAuthorization();
 

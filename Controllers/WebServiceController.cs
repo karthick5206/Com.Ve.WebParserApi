@@ -20,8 +20,8 @@ namespace Com.Ve.WebParserApi.Controllers
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        private const string ReplySuccess= "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
-        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+        private const string ReplySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
@@ -35,7 +35,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        public HttpResponseMessage ChatResponse([FromForm] string Imei, [FromForm] string Reply)
+        public IActionResult ChatResponse([FromForm] string Imei, [FromForm] string Reply)
         {
             try
             {
@@ -49,20 +49,16 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
-            var httpResponse = new HttpResponseMessage
+            return new ContentResult
             {
-                Content = new StringContent(ReplySuccess0),
-                StatusCode = HttpStatusCode.OK,
+                Content = ReplySuccess0,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
             };
-            httpResponse.Headers.TransferEncodingChunked = false;
-            HttpContext.Response.ContentType = "text/xml";
-            HttpContext.Response.ContentLength = Encoding.UTF8.GetBytes(ReplySuccess0).Length;
-            //return ReplySuccess0;
-            return httpResponse;
         }
 
         [HttpGet("GetChatResponse")]
-        public XElement GetChatResponse(string Imei, string Reply)
+        public IActionResult GetChatResponse(string Imei, string Reply)
         {
             try
             {
@@ -76,14 +72,21 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
-            HttpContext.Response.ContentType = "text/xml";
+            // HttpContext.Response.ContentType = "text/xml";
+            //HttpContext.Request.Headers.Clear();
             //return ReplySuccess0;
-            return XDocument.Parse(ReplySuccess0).Root;
+            // return XDocument.Parse(ReplySuccess0).Root;
+            return new ContentResult
+            {
+                Content = ReplySuccess0,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
+            };
         }
 
         [HttpPost("GetCommands")]
 
-        public string GetCommands([FromForm] string Imei)
+        public IActionResult GetCommands([FromForm] string Imei)
         {
             try
             {
@@ -98,10 +101,16 @@ namespace Com.Ve.WebParserApi.Controllers
             string XML = "<string xmlns=\"http://tempuri.org/\"></string>";
             HttpContext.Response.ContentType = "text/xml";
             //return XDocument.Parse(XML).Root;
-            return ReplySuccess;
+            //return ReplySuccess;
+            return new ContentResult
+            {
+                Content = ReplySuccess,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
+            };
         }
         [HttpPost("FirmwareUpdated")]
-        private XElement FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
+        private IActionResult FirmwareUpdated([FromForm] string Imei, [FromForm] string FirmwareId)
         {
             try
             {
@@ -115,12 +124,18 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            HttpContext.Response.ContentType = "text/xml";
-            return XDocument.Parse(XML).Root;
+            //HttpContext.Response.ContentType = "text/xml";
+            //return XDocument.Parse(XML).Root;
+            return new ContentResult
+            {
+                Content = ReplySuccess0,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
+            };
         }
 
         [HttpPost("DeviceStatus")]
-        public XElement DeviceStatus([FromForm] string IMEI, [FromForm] string GpsStatus)
+        public IActionResult DeviceStatus([FromForm] string IMEI, [FromForm] string GpsStatus)
         {
             try
             {
@@ -135,11 +150,17 @@ namespace Com.Ve.WebParserApi.Controllers
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
             HttpContext.Response.ContentType = "text/xml";
-            return XDocument.Parse(XML).Root;
+            //return XDocument.Parse(XML).Root;
+            return new ContentResult
+            {
+                Content = ReplySuccess0,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
+            };
         }
 
         [HttpPost("RawTripLog")]
-        public XElement RawTripLog([FromForm] string Imei, [FromForm] string TripLogData)
+        public IActionResult RawTripLog([FromForm] string Imei, [FromForm] string TripLogData)
         {
             try
             {
@@ -174,7 +195,13 @@ namespace Com.Ve.WebParserApi.Controllers
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
             HttpContext.Response.ContentType = "text/xml";
-            return XDocument.Parse(ReplySuccess).Root;
+            //return XDocument.Parse(ReplySuccess).Root;
+            return new ContentResult
+            {
+                Content = ReplySuccess0,
+                ContentType = "text/xml",
+                StatusCode = (int)HttpStatusCode.OK,
+            };
         }
     }
 
