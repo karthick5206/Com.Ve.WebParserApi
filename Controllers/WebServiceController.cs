@@ -49,6 +49,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+            HttpContext.Response.ContentType = "text/xml";
             return new ContentResult
             {
                 Content = ReplySuccess0,
@@ -72,7 +73,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
-            // HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = "text/xml";
             //HttpContext.Request.Headers.Clear();
             //return ReplySuccess0;
             // return XDocument.Parse(ReplySuccess0).Root;
@@ -124,7 +125,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
-            //HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = "text/xml";
             //return XDocument.Parse(XML).Root;
             return new ContentResult
             {
@@ -198,31 +199,10 @@ namespace Com.Ve.WebParserApi.Controllers
             //return XDocument.Parse(ReplySuccess).Root;
             return new ContentResult
             {
-                Content = ReplySuccess0,
+                Content = ReplySuccess,
                 ContentType = "text/xml",
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
-    }
-
-    [XmlRoot(ElementName = "string", Namespace = "http://tempuri.org/")]
-    public class XmlOutput
-    {
-        private XmlSerializerNamespaces _namespaces;
-
-        public XmlOutput()
-        {
-            this._namespaces = new XmlSerializerNamespaces(new XmlQualifiedName[] {
-            // Don't do this!! Microsoft's documentation explicitly says it's not supported.
-            // It doesn't throw any exceptions, but in my testing, it didn't always work.
-
-            // new XmlQualifiedName(string.Empty, string.Empty),  // And don't do this:
-            // new XmlQualifiedName("", "")
-
-            // DO THIS:
-            new XmlQualifiedName(string.Empty, "urn:Abracadabra") // Default Namespace
-            // Add any other namespaces, with prefixes, here.
-        });
-        }
-    }
+    }    
 }
