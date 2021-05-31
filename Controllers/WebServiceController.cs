@@ -20,8 +20,8 @@ namespace Com.Ve.WebParserApi.Controllers
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        private const string ReplySuccess = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
-        private const string ReplySuccess0 = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
+        private const string ReplySuccess = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplySuccess0 = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
