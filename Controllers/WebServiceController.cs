@@ -35,8 +35,7 @@ namespace Com.Ve.WebParserApi.Controllers
         }
 
         [HttpPost("ChatResponse")]
-        [HttpGet("Chat")]
-        public XElement ChatResponse([FromForm] string Imei, [FromForm] string Reply)
+        public HttpResponseMessage ChatResponse([FromForm] string Imei, [FromForm] string Reply)
         {
             try
             {
@@ -50,9 +49,16 @@ namespace Com.Ve.WebParserApi.Controllers
                 Log(ex.StackTrace, LogType.Error);
             }
             //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+            var httpResponse = new HttpResponseMessage
+            {
+                Content = new StringContent(ReplySuccess0),
+                StatusCode = HttpStatusCode.OK,
+            };
+            httpResponse.Headers.TransferEncodingChunked = false;
             HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentLength = Encoding.UTF8.GetBytes(ReplySuccess0).Length;
             //return ReplySuccess0;
-            return XDocument.Parse(ReplySuccess0).Root;
+            return httpResponse;
         }
 
         [HttpGet("GetChatResponse")]
@@ -69,7 +75,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+            string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
             HttpContext.Response.ContentType = "text/xml";
             //return ReplySuccess0;
             return XDocument.Parse(ReplySuccess0).Root;
@@ -168,7 +174,7 @@ namespace Com.Ve.WebParserApi.Controllers
             }
             string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
             HttpContext.Response.ContentType = "text/xml";
-            return XDocument.Parse(XML).Root;
+            return XDocument.Parse(ReplySuccess).Root;
         }
     }
 
