@@ -20,8 +20,8 @@ namespace Com.Ve.WebParserApi.Controllers
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        private const string ReplySuccess = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
-        private const string ReplySuccess0 = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+        private const string ReplySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
@@ -48,11 +48,10 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            //string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
             HttpContext.Response.ContentType = "text/xml";
             return new ContentResult
             {
-                Content = ReplySuccess0,
+                Content = ReplySuccess,
                 ContentType = "text/xml",
                 StatusCode = (int)HttpStatusCode.OK,
             };
@@ -72,11 +71,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
             HttpContext.Response.ContentType = "text/xml";
-            //HttpContext.Request.Headers.Clear();
-            //return ReplySuccess0;
-            // return XDocument.Parse(ReplySuccess0).Root;
             return new ContentResult
             {
                 Content = ReplySuccess0,
@@ -99,10 +94,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\"></string>";
             HttpContext.Response.ContentType = "text/xml";
-            //return XDocument.Parse(XML).Root;
-            //return ReplySuccess;
             return new ContentResult
             {
                 Content = ReplySuccess,
@@ -124,9 +116,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
             HttpContext.Response.ContentType = "text/xml";
-            //return XDocument.Parse(XML).Root;
             return new ContentResult
             {
                 Content = ReplySuccess0,
@@ -149,9 +139,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS0</string>";
             HttpContext.Response.ContentType = "text/xml";
-            //return XDocument.Parse(XML).Root;
             return new ContentResult
             {
                 Content = ReplySuccess0,
@@ -194,9 +182,7 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            string XML = "<string xmlns=\"http://tempuri.org/\">SUCCESS</string>";
             HttpContext.Response.ContentType = "text/xml";
-            //return XDocument.Parse(ReplySuccess).Root;
             return new ContentResult
             {
                 Content = ReplySuccess,
@@ -204,5 +190,5 @@ namespace Com.Ve.WebParserApi.Controllers
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
-    }    
+    }
 }
