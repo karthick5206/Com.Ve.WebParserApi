@@ -34,6 +34,11 @@ namespace Com.Ve.WebParserApi.Controllers
             Log($"Method:{Request.Method} Path:{Request.Path}" +
                 $" QueryString:{Request.QueryString} Method:{Request.Method}" +
                 $" ContentType:{Request.ContentType} {Request.ContentLength}", LogType.Info);
+
+            foreach(var header in Request.Headers)
+            {
+                Log($"Header - Key:{header.Key} Value:{header.Value.ToString()}", LogType.Info);
+            }
         }
 
         [HttpPost("ChatResponse")]
