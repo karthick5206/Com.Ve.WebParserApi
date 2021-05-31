@@ -62,7 +62,7 @@ namespace Com.Ve.ServerDataReceiver.RavenDB
         {
             try
             {
-                Console.WriteLine($"New log received - {DateTime.Now}");
+                Console.WriteLine($"New log received - {DateTime.Now} Message-{gpsData.Log}");
 
                 using (IDocumentSession session = DocumentStoreHolder.Store.OpenSession())
                 {
