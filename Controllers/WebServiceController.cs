@@ -20,8 +20,9 @@ namespace Com.Ve.WebParserApi.Controllers
     [ApiController]
     public class WebServiceController : ControllerBase
     {
-        private const string ReplySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
-        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+        private const string ReplySuccess = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplyEmptySuccess = "<string xmlns=\"http://tempuri.org/\">\"\"</string>";
+        private const string ReplySuccess0 = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
@@ -119,7 +120,7 @@ namespace Com.Ve.WebParserApi.Controllers
             HttpContext.Response.ContentType = "text/xml";
             return new ContentResult
             {
-                Content = ReplySuccess0,
+                Content = ReplyEmptySuccess,
                 ContentType = "text/xml",
                 StatusCode = (int)HttpStatusCode.OK,
             };
