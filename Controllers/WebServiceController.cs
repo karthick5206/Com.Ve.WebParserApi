@@ -23,6 +23,7 @@ namespace Com.Ve.WebParserApi.Controllers
         private const string ReplySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
         private const string ReplyEmptySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<string xmlns=\"http://tempuri.org/\">\"\"</string>";
         private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+        private const string ContentType = "text/xml; charset=utf-8";
         private void Log(string log, LogType logType)
         {
             RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
@@ -49,13 +50,13 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplySuccess0,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
-            };
+            };           
         }
 
         [HttpGet("GetChatResponse")]
@@ -72,11 +73,11 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplySuccess0,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
@@ -95,11 +96,11 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplySuccess,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
@@ -117,11 +118,11 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplyEmptySuccess,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
@@ -140,11 +141,11 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplySuccess0,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
@@ -183,11 +184,11 @@ namespace Com.Ve.WebParserApi.Controllers
             {
                 Log(ex.StackTrace, LogType.Error);
             }
-            HttpContext.Response.ContentType = "text/xml";
+            HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
                 Content = ReplySuccess,
-                ContentType = "text/xml",
+                ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
         }
