@@ -16,7 +16,7 @@ using System.Xml.Serialization;
 
 namespace Com.Ve.WebParserApi.Controllers
 {
-    [Route("api/FM350Service.asmx")]
+    [Route("api/FMTFZService.asmx")]
     [ApiController]
     public class FM350Service : ControllerBase
     {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Com.Ve.WebParserApi.Controllers
 {
-    [Route("api/FM450Service.asmx")]
+    [Route("api/FMFFZService.asmx")]
     [ApiController]
     public class FM450Service : ControllerBase
     {
