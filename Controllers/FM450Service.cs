@@ -1,33 +1,24 @@
 ﻿using Com.Ve.ServerDataReceiver.RavenDB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace Com.Ve.WebParserApi.Controllers
 {
-    [Route("api/WebService.asmx")]
+    [Route("api/FM450Service.asmx")]
     [ApiController]
-    public class WebServiceController : ControllerBase
+    public class FM450Service : ControllerBase
     {
-        private const string ReplySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
-        private const string ReplyEmptySuccess = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"\"</string>";
-        private const string ReplySuccess0 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
+        private const string DeviceName = "FM450";
+        private const string ReplySuccess = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS\"</string>";
+        private const string ReplyEmptySuccess = "<string xmlns=\"http://tempuri.org/\">\"\"</string>";
+        private const string ReplySuccess0 = "<string xmlns=\"http://tempuri.org/\">\"SUCCESS0\"</string>";
         private const string ContentType = "text/xml; charset=utf-8";
-        private void Log(string log, LogType logType)
-        {
-            RavenDbConnector.Add(new LogData { Log = log, LogType = logType });
-        }
+
+        private void Log(string log, LogType logType) =>
+            RavenDbConnector.Add(new LogData { Log = $"Device:{DeviceName} - {log}", LogType = logType });
 
         private void WriteRequest()
         {
@@ -36,9 +27,7 @@ namespace Com.Ve.WebParserApi.Controllers
                 $" ContentType:{Request.ContentType} {Request.ContentLength}", LogType.Info);
 
             foreach(var header in Request.Headers)
-            {
                 Log($"Header - Key:{header.Key} Value:{header.Value.ToString()}", LogType.Info);
-            }
         }
 
         [HttpPost("ChatResponse")]
@@ -192,7 +181,7 @@ namespace Com.Ve.WebParserApi.Controllers
             HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
-                Content = ReplySuccess0,
+                Content = ReplySuccess,
                 ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
