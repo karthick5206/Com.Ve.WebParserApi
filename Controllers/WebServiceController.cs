@@ -192,7 +192,7 @@ namespace Com.Ve.WebParserApi.Controllers
             HttpContext.Response.ContentType = ContentType;
             return new ContentResult
             {
-                Content = ReplySuccess0,
+                Content = ReplySuccess,
                 ContentType = ContentType,
                 StatusCode = (int)HttpStatusCode.OK,
             };
