@@ -26,7 +26,7 @@ namespace Com.Ve.ServerDataReceiver.RavenDB
                     string[] indexNames = DocumentStoreHolder.Store.Maintenance.Send(new GetIndexNamesOperation(0, int.MaxValue));
                     Console.WriteLine($"Index count...{indexNames?.Length}");
 
-                    if (indexNames?.Any(i => i == nameof(GpsDataDateTimeIndex)) ?? false)
+                    if (indexNames?.Any(i => i == nameof(GpsDataDateTimeIndex)) ?? true)
                         new GpsDataDateTimeIndex().Execute(DocumentStoreHolder.Store);
 
                     Console.WriteLine($"Index inserted...{nameof(GpsDataDateTimeIndex)}");
@@ -62,7 +62,7 @@ namespace Com.Ve.ServerDataReceiver.RavenDB
         {
             try
             {
-                Console.WriteLine($"New log received - {DateTime.Now} Message-{gpsData.Log}");
+                Console.WriteLine($"{DateTime.Now} Message-{gpsData.Log}");
 
                 using (IDocumentSession session = DocumentStoreHolder.Store.OpenSession())
                 {
@@ -83,7 +83,7 @@ namespace Com.Ve.ServerDataReceiver.RavenDB
     {
         public string Log { get; set; }
         public LogType LogType { get; set; }
-        public DateTime DateTime => DateTime.Now;
+        public DateTime DateTime => DateTime.UtcNow.AddHours(5).AddMinutes(30);
     }
 
     public enum LogType
