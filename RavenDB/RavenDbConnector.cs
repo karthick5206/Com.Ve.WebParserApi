@@ -42,7 +42,7 @@ namespace Com.Ve.ServerDataReceiver.RavenDB
         {
             try
             {
-                Console.WriteLine($"New data received - {DateTime..UtcNow.AddHours(5).AddMinutes(30)}");
+                Console.WriteLine($"New data received - {DateTime.UtcNow.AddHours(5).AddMinutes(30)}");
 
                 using (IDocumentSession session = DocumentStoreHolder.Store.OpenSession())
                 {
